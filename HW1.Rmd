@@ -1,0 +1,34 @@
+---
+title: "Hw1"
+author: "Junghoon Kang"
+date: '2021 9 17 '
+output: github_document
+---
+##Bridges of the WI
+```{r}
+library(readr)
+library(rvest)
+library(readr)
+Faculty=read_html("https://guide.wisc.edu/faculty/")
+pick1=html_nodes(Faculty,'.uw-people')
+
+```
+
+```{R}
+pick2=html_nodes(pick1,'li')
+
+pick3=html_text(pick2,trim=TRUE)
+pick1
+
+```
+
+
+
+
+
+```{r}
+a=read.csv("WI20.csv", sep=",", header=TRUE)
+
+barplot(a$COUNTY_CODE_003)
+
+```
