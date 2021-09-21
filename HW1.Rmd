@@ -30,4 +30,3 @@ a=read.csv("WI20.csv", sep=",", header=TRUE)
 hist(a$COUNTY_CODE_003,main = paste("Frenquency Histogram of County Code"))
 
 ```
-```

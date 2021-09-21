@@ -64,4 +64,4 @@ a=read.csv("WI20.csv", sep=",", header=TRUE)
 hist(a$COUNTY_CODE_003,main = paste("Frenquency Histogram of County Code"))
 ```
 
-![](HW1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- --> \`\`\`
+![](HW1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
