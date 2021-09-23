@@ -3,8 +3,6 @@ Hw1
 Junghoon Kang
 2021 9 17
 
-\#\#Bridges of the WI
-
 ``` r
 library(readr)
 library(rvest)
@@ -19,49 +17,40 @@ library(rvest)
 
 ``` r
 library(readr)
+library(ggplot2)
+```
+
+# UW Madison faculty data
+
+## Data collecting
+
+``` r
 Faculty=read_html("https://guide.wisc.edu/faculty/")
 pick1=html_nodes(Faculty,'.uw-people')
+
+a<-c()
+for (i in 1:26) {
+a[i]<-sum(length(pick1[i] %>% html_nodes('p') %>% html_text()))
+}
+k=data.frame(LETTERS,count=a)
 ```
 
-``` r
-pick2=html_nodes(pick1,'li')
-
-pick3=html_text(pick2,trim=TRUE)
-pick1
-```
-
-    ## {xml_nodeset (26)}
-    ##  [1] <ul class="uw-people">\n<li><p>ABBOTT,DAVID H.<br>Professor<br>Obstetric ...
-    ##  [2] <ul class="uw-people">\n<li><p>BABAL,JESSICA<br>Asst Professor (Chs)<br> ...
-    ##  [3] <ul class="uw-people">\n<li><p>CABRERA,VICTOR E<br>Professor<br>Animal A ...
-    ##  [4] <ul class="uw-people">\n<li><p>DAHL,GARY<br>Assoc Faculty Assoc<br>Compu ...
-    ##  [5] <ul class="uw-people">\n<li><p>EADIE,LOREN<br>Assoc Faculty Assoc<br>Fre ...
-    ##  [6] <ul class="uw-people">\n<li><p>FABRY,ZSUZSANNA<br>Professor<br>Pathology ...
-    ##  [7] <ul class="uw-people">\n<li><p>GABAI,JOSHUA<br>Assoc Lecturer<br>Curricu ...
-    ##  [8] <ul class="uw-people">\n<li><p>HA,MELISSA ELLEN<br>Clinical Instructor<b ...
-    ##  [9] <ul class="uw-people">\n<li><p>IBARRA,ARMANDO<br>Associate Professor<br> ...
-    ## [10] <ul class="uw-people">\n<li><p>JABLONSKY,CLAIRE<br>Lecturer<br>Counselin ...
-    ## [11] <ul class="uw-people">\n<li><p>KABBAGE,MEHDI<br>Associate Professor<br>P ...
-    ## [12] <ul class="uw-people">\n<li><p>LA ROWE,TARA LEA<br>Assoc Faculty Assoc<b ...
-    ## [13] <ul class="uw-people">\n<li><p>MA,CHU<br>Assistant Professor<br>Electric ...
-    ## [14] <ul class="uw-people">\n<li><p>NACEWICZ,BRENDON MARK<br>Assistant Profes ...
-    ## [15] <ul class="uw-people">\n<li><p>O BRIEN,JERRY<br>Faculty Associate<br>Con ...
-    ## [16] <ul class="uw-people">\n<li><p>PAC,GREGORY<br>Senior Lecturer<br>Economi ...
-    ## [17] <ul class="uw-people">\n<li><p>QIAN,XIAOPING<br>Professor<br>Mechanical  ...
-    ## [18] <ul class="uw-people">\n<li><p>RACETTE,MOLLY<br>Clinical Asst Prof<br>Me ...
-    ## [19] <ul class="uw-people">\n<li><p>SAALMANN,YURI B.<br>Associate Professor<b ...
-    ## [20] <ul class="uw-people">\n<li><p>TABER,CHRIS<br>Professor<br>Economics<br> ...
-    ## ...
+## Data visualization
 
 ``` r
-a=read.csv("WI20.csv", sep=",", header=TRUE)
-```
-
-    ## Warning in scan(file = file, what = what, sep = sep, quote = quote, dec = dec, :
-    ## 따옴표로 묶인 문자열내에 EOF가 있습니다
-
-``` r
-hist(a$COUNTY_CODE_003,main = paste("Frenquency Histogram of County Code"))
+ggplot(k,aes(x=LETTERS,y=count,fill=LETTERS))+
+  geom_bar(stat="identity")+
+  ggtitle("Last name starting letter from Faculty of UW-Madison")
 ```
 
 ![](HW1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+## Wisconsin bridge data
+
+``` r
+a=read.csv("WI20.csv", sep=",",quote = "",stringsAsFactors = FALSE)
+
+hist(a$COUNTY_CODE_003,main = paste("Frenquency Histogram of County Code"))
+```
+
+![](HW1_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
